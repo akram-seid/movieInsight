@@ -4,10 +4,8 @@ package com.seidbros.movieinsight.model;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -47,11 +45,10 @@ public class Movie {
     private List<Keyword> keywords;
     private Credit credits;
     private CollectionInfo belongsToCollection;
-    private List<Rating> recentRatings;
+    private List<RecentRating> recentRatings;
     private Link links;
     private Double avgRating;
     private Integer ratingCount;
-    private Map<Double, Integer> ratingDistribution;
-
+    private Map<Integer, Integer> ratingDistribution;
 
 }
