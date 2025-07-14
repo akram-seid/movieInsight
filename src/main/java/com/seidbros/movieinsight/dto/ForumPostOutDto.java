@@ -9,6 +9,7 @@ public record ForumPostOutDto (
      String content,
      String movieId,
      String createdBy,
+     String movieTitle,
      String postId,
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
      LocalDateTime timestamp){

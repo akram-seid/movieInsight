@@ -24,6 +24,7 @@ public class ForumPost {
     private List<Reply> replies;
     private List<DeletedReply> deletedReplies;
     private String movieId;
+    private String movieTitle;
     private String createdBy;
     private String postId;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)

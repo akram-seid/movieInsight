@@ -22,11 +22,10 @@ import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class ForumService {
+public class PostService {
 
     private final BaseService baseService;
     private final MongoTemplate mongoTemplate;
@@ -68,8 +67,8 @@ public class ForumService {
         if (postOptional.isPresent()) {
             ForumPost forumPost = postOptional.get();
             forumPost.setContent(forumPostUpdateInDto.content());
-            ForumPost updatedPost = forumPostRepository.save(forumPost);
-            return baseService.success(forumPostMapper.toForumPostOutDto(updatedPost));
+            ForumPost updatedForumPost = forumPostRepository.save(forumPost);
+            return baseService.success(forumPostMapper.toForumPostOutDto(updatedForumPost));
         }
         return baseService.error("Post not found");
     }
@@ -93,7 +92,7 @@ public class ForumService {
     public Base<?> findPostById(String postId) {
         Optional<ForumPost> postOptional = forumPostRepository.findForumPostByPostIdIs(postId);
         if (postOptional.isPresent()) {
-            return baseService.success(forumPostMapper.toForumPostOutDto(postOptional.get()));
+            return baseService.success(postOptional.get());
         }
         return baseService.error("Post not found");
     }
@@ -110,7 +109,7 @@ public class ForumService {
     public Base<?> replyToPost(ReplyInDto replyInDto) {
         Optional<ForumPost> forumPostByPostId = forumPostRepository.findForumPostByPostId(replyInDto.postId());
         if (forumPostByPostId.isPresent()) {
-            Reply reply = Reply.builder().replyId(UUID.randomUUID().toString()).timestamp(LocalDateTime.now()).userId(replyInDto.userId()).comment(replyInDto.comment()).build();
+            Reply reply = Reply.builder().replyId(UUID.randomUUID().toString()).timestamp(LocalDateTime.now()).userId(replyInDto.userId()).content(replyInDto.comment()).build();
 
             ForumPost forumPost = forumPostByPostId.get();
             forumPost.getReplies().add(reply);
@@ -140,7 +139,7 @@ public class ForumService {
         forumPost.getReplies().remove(reply);
         DeletedReply deleted = new DeletedReply();
         deleted.setOriginalAuthor(reply.getUserId());
-        deleted.setOriginalMessage(reply.getComment());
+        deleted.setOriginalMessage(reply.getContent());
         deleted.setDeletedAt(LocalDateTime.now());
         deleted.setModerator(deleteReplyInDto.moderator());
         deleted.setDeletionReason(deleteReplyInDto.reason() != null ? deleteReplyInDto.reason() : "No reason provided");
