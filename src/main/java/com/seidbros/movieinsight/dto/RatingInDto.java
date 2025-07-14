@@ -1,5 +1,5 @@
 package com.seidbros.movieinsight.dto;
 
-public record RatingInDto(String movieId, Double rating, String userId) {
+public record RatingInDto(String movieId,String username, Integer rating, String userId) {
 
 }

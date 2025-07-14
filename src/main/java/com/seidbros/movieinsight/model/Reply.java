@@ -15,6 +15,6 @@ import java.time.LocalDateTime;
 public class Reply {
     private String replyId;
     private String userId;
-    private String comment;
+    private String content;
     private LocalDateTime timestamp;
 }
