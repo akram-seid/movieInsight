@@ -46,10 +46,4 @@ public interface RatingRepository extends MongoRepository<Rating, String> {
 
 
     List<Rating> findRatingsByTimestampBetween(Date startDate, Date endDate);
-
-    List<Rating> findRatingsByRatingIs(Integer rating);
-
-
-
-
 }
