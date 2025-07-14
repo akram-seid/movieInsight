@@ -1,6 +1,7 @@
 package com.seidbros.movieinsight.controller;
 
 
+import com.seidbros.movieinsight.dto.RatingInDto;
 import com.seidbros.movieinsight.dto.base.Base;
 import com.seidbros.movieinsight.dto.base.BaseList;
 import com.seidbros.movieinsight.model.Movie;
@@ -8,10 +9,7 @@ import com.seidbros.movieinsight.service.BaseService;
 import com.seidbros.movieinsight.service.MovieService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("movies")
@@ -48,5 +46,11 @@ public class MovieController {
         Base<?> movie = movieService.getMovie(movieId);
         return baseService.rest(movie);
 
+    }
+
+    @PostMapping("rating")
+    public ResponseEntity<?> rateMovie(@RequestBody RatingInDto ratingInDto) {
+        Base<?> base = movieService.rateMovie(ratingInDto);
+        return baseService.rest(base);
     }
 }
