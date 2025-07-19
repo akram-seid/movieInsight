@@ -92,7 +92,6 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- For BCrypt -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
@@ -141,6 +140,6 @@
 
             </plugin>
         </plugins>
-
+<finalName>movieInsight</finalName>
     </build>
 </project>
