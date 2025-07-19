@@ -3,15 +3,18 @@ spring:
     name: MovieInsight
   data:
     mongodb:
-      uri: mongodb://localhost:27017/movieInsight
       field-naming-strategy: org.springframework.data.mapping.model.SnakeCaseFieldNamingStrategy  # camelCase → snake_case
-      auto-index-creation: true          # Create indexes automatically
+      auto-index-creation: true
+      host: localhost
+      port: 27017
+      additional-hosts: [ localhost:27018, localhost:27019]
+      database: movieInsight
+      replica-set-name: rs0
   neo4j:
     uri: bolt://localhost:7687
     authentication:
       username: neo4j
       password: Root@1234
-
 server:
   port: 8080
 
