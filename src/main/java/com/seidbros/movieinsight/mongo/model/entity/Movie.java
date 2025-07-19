@@ -1,0 +1,57 @@
+package com.seidbros.movieinsight.mongo.model.entity;
+
+
+import com.seidbros.movieinsight.mongo.model.*;
+import lombok.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.Map;
+
+@Builder
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Document(collection = "movies")
+public class Movie {
+    @Id
+    private String id;
+    private String movieId;
+    private String title;
+    private String originalTitle;
+    private String language;
+    private String status;
+    private Long runtime;
+    private Long voteCount;
+    private Double voteAverage;
+    private Double popularity;
+    private BigDecimal budget;
+    private BigDecimal revenue;
+    private String imdbId;
+    private String tagline;
+    private String overview;
+    private String posterPath;
+
+    private Boolean adult;
+    private Boolean video;
+    private String homepage;
+    private String releaseDate;
+
+    private List<Genre> genres;
+    private List<Company> productionCompanies;
+    private List<Country> productionCountries;
+    private List<Language> spokenLanguages;
+    private List<Keyword> keywords;
+    private Credit credits;
+    private CollectionInfo belongsToCollection;
+    private List<RecentRating> recentRatings;
+    private Link links;
+    private Double avgRating;
+    private Integer ratingCount;
+    private Map<Integer, Integer> ratingDistribution;
+    private boolean synced;
+
+}
