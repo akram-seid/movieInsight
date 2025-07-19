@@ -43,7 +43,6 @@ public class PostController {
     }
 
     @DeleteMapping("delete")
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> deletePost(@RequestParam("postId") String postId) {
         Base<?> base = postService.deletePost(postId);
         return baseService.rest(base);
@@ -73,7 +72,6 @@ public class PostController {
     }
 
     @GetMapping("deletedReplies")
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> getDeletedReplies(@RequestParam("postId") String postId) {
 
         BaseList<?> postById = postService.getDeletedReplies(postId);
@@ -87,7 +85,6 @@ public class PostController {
     }
 
     @DeleteMapping("deleteReply")
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> deleteReply(@RequestBody DeleteReplyInDto deleteReplyInDto) {
         Base<?> base = postService.deleteReply(deleteReplyInDto);
         return baseService.rest(base);

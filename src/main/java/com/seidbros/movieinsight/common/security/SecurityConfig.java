@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -31,17 +32,14 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth ->
-                        auth.requestMatchers("/user/**",
-                                        "/v2/api-docs",
-                                        "/swagger-resources",
-                                        "/swagger-resources/**",
-                                        "/configuration/ui",
-                                        "/configuration/security",
-                                        "/swagger-ui.html",
-                                        "/webjars/**",
-                                        "/v3/api-docs/**",
-                                        "/swagger-ui/**").permitAll()
-                                .anyRequest().authenticated())
+                        auth.requestMatchers(HttpMethod.POST, "/movies/rating").hasAnyRole("USER", "ADMIN")
+                                .requestMatchers(HttpMethod.DELETE, "/forum/delete").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.POST, "/forum/reply").hasAnyRole("USER", "ADMIN")
+                                .requestMatchers(HttpMethod.POST, "/forum/add").hasAnyRole("USER", "ADMIN")
+                                .requestMatchers(HttpMethod.POST, "/user/changePassword").hasAnyRole("USER", "ADMIN")
+                                .requestMatchers(HttpMethod.DELETE, "/forum/deleteReply").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.GET, "/forum/deletedReplies").hasRole("ADMIN")
+                                .anyRequest().permitAll())
                 .sessionManagement(sessionManagement ->
                         sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .exceptionHandling(exceptionHandling ->
